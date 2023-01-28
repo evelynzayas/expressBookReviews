@@ -65,6 +65,21 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
   }
 });
 
+// delete a book review
+regd_users.delete("/auth/review/:isbn", (req, res) => {
+    //Write your code here
+    const isbn = req.params.isbn;
+    let filtered_book = books[isbn]
+    if (filtered_book) {
+        filtered_book['reviews']= "";
+        books[isbn] = filtered_book;
+        res.send(`The review for the book with ISBN ${isbn} for this user has been deleted.`);
+    }
+    else{
+        res.send("Unable to find this ISBN for this user!");
+    }
+  });
+
 module.exports.authenticated = regd_users;
 module.exports.isValid = isValid;
 module.exports.users = users;
